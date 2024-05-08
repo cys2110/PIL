@@ -3,9 +3,12 @@ const { DataTypes, Model } = require('sequelize')
 module.exports = (sequelize, models) => {
     class Document extends Model {
         static associate () {
-            const { Paragraph, IcjCase } = models
-            Document.hasMany(Paragraph)
-            Document.belongsTo(IcjCase)
+            const { DocType, Case, DocText, Judge, DocJudge } = models
+            Document.belongsTo(DocType)
+            Document.belongsTo(Case)
+            Document.hasMany(DocText, {as: 'DocumentText'})
+            Document.belongsToMany(Judge, {through: 'DocJudge'})
+            Document.belongsToMany(DocText, {as: 'Cites', through: 'DocCite'})
         }
     }
 
@@ -19,13 +22,10 @@ module.exports = (sequelize, models) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        type: DataTypes.STRING,
         date: DataTypes.DATEONLY,
-        language: DataTypes.STRING,
-        subjects: DataTypes.ARRAY(DataTypes.STRING),
+        cite: DataTypes.STRING,
         link: DataTypes.STRING,
-        judges: DataTypes.ARRAY(DataTypes.STRING),
-        cite: DataTypes.STRING
+        conclusions: DataTypes.ARRAY(DataTypes.STRING)
     },
     {
         sequelize,

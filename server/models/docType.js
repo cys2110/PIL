@@ -1,29 +1,28 @@
 const { DataTypes, Model } = require('sequelize')
 
 module.exports = (sequelize, models) => {
-    class Annotation extends Model {
+    class DocType extends Model {
         static associate () {
-            const { Paragraph, User } = models
-            Annotation.belongsTo(Paragraph)
-            Annotation.belongsTo(User)
+            const { Document } = models
+            DocType.hasMany(Document)
         }
     }
 
-    Annotation.init({
+    DocType.init({
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        text: {
-            type: DataTypes.TEXT,
+        docType: {
+            type: DataTypes.STRING,
             allowNull: false
         }
     },
     {
         sequelize,
-        modelName: 'Annotation'
+        modelName: 'DocType'
     })
 
-    return Annotation
+    return DocType
 }
