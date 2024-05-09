@@ -1,26 +1,25 @@
 const { DataTypes, Model } = require('sequelize')
 
 module.exports = (sequelize, models) => {
-    class TreatyText extends Model {
+    class TreatyFullText extends Model {
         static associate () {
-            const { Treaty, Keyword } = models
-            TreatyText.belongsTo(Treaty)
-            TreatyText.belongsToMany(Keyword, {through: 'TreatyKeyword'})
+            const { Treaty } = models
+            TreatyFullText.belongsTo(Treaty)
         }
     }
 
-    TreatyText.init({
+    TreatyFullText.init({
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        text: DataTypes.TEXT,
+        text: DataTypes.TEXT
     },
     {
         sequelize,
-        modelName: 'TreatyText'
+        modelName: 'TreatyFullText'
     })
 
-    return TreatyText
+    return TreatyFullText
 }

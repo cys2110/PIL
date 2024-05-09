@@ -19,6 +19,7 @@ module.exports = (sequelize, models) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        abbr: DataTypes.STRING,
         established: DataTypes.INTEGER,
         abolished: DataTypes.INTEGER,
         jx: DataTypes.STRING,

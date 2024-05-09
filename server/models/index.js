@@ -25,6 +25,7 @@ db.Keyword = require('./keyword')(sequelize, db)
 db.Subject = require('./subject')(sequelize, db)
 db.Treaty = require('./treaty')(sequelize, db)
 db.TreatyParties = require('./treatyParties')(sequelize, db)
+db.TreatyFullText = require('./treatyFullText')(sequelize, db)
 db.TreatyText = require('./treatyText')(sequelize, db)
 
 Object.keys(db).forEach(modelName => {
