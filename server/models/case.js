@@ -30,7 +30,8 @@ module.exports = (sequelize, models) => {
     },
     {
         sequelize,
-        modelName: 'Case'
+        modelName: 'Case',
+        timestamps: false
     })
 
     return Case

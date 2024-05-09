@@ -3,13 +3,12 @@ const { DataTypes, Model } = require('sequelize')
 module.exports = (sequelize, models) => {
     class Treaty extends Model {
         static associate () {
-            const { TreatyText, TreatyParties, Country, Court, DocText, TreatyFullText } = models
-            Treaty.hasMany(TreatyText)
+            const { TreatyText, TreatyParties, Country, Court, Document } = models
+            Treaty.hasOne(TreatyText)
             Treaty.belongsToMany(Country, {as: 'TreatyCountry', through: TreatyParties})
             Treaty.hasMany(TreatyParties, {as: 'PartytoTreaty'})
             Treaty.hasOne(Court)
-            Treaty.belongsToMany(DocText, {through: 'DocTreaty'})
-            Treaty.hasOne(TreatyFullText)
+            Treaty.belongsToMany(Document, {as: 'TreatyCite', through: 'TreatyCites'})
         }
     }
 
@@ -31,7 +30,8 @@ module.exports = (sequelize, models) => {
     },
     {
         sequelize,
-        modelName: 'Treaty'
+        modelName: 'Treaty',
+        timestamps: false
     })
 
     return Treaty

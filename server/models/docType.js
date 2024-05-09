@@ -21,7 +21,8 @@ module.exports = (sequelize, models) => {
     },
     {
         sequelize,
-        modelName: 'DocType'
+        modelName: 'DocType',
+        timestamps: false
     })
 
     return DocType

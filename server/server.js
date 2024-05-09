@@ -5,7 +5,7 @@ const logger = require('morgan')
 const PORT = process.env.PORT || 8080
 
 const db = require('./models')
-// db.sequelize.sync({alter: true})
+// db.sequelize.sync({force: true})
 //     .then(() => {
 //         console.log('Synced db')
 //     })

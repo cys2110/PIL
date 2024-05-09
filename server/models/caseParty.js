@@ -14,7 +14,8 @@ module.exports = (sequelize, models) => {
     },
     {
         sequelize,
-        modelName: 'CaseParty'
+        modelName: 'CaseParty',
+        timestamps: false
     })
 
     return CaseParty

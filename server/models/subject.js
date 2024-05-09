@@ -21,7 +21,8 @@ module.exports = (sequelize, models) => {
     },
     {
         sequelize,
-        modelName: 'Subject'
+        modelName: 'Subject',
+        timestamps: false
     })
 
     return Subject

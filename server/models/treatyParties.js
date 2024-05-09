@@ -18,7 +18,8 @@ module.exports = (sequelize, models) => {
     },
     {
         sequelize,
-        modelName: 'TreatyParties'
+        modelName: 'TreatyParties',
+        timestamps: false
     })
 
     return TreatyParties

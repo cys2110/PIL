@@ -3,9 +3,10 @@ const { DataTypes, Model } = require('sequelize')
 module.exports = (sequelize, models) => {
     class TreatyText extends Model {
         static associate () {
-            const { Treaty, Keyword } = models
+            const { Treaty, Keyword, TreatyKeyword } = models
             TreatyText.belongsTo(Treaty)
-            TreatyText.belongsToMany(Keyword, {through: 'TreatyKeyword'})
+            TreatyText.belongsToMany(Keyword, {as: 'TreatysKeyword', through: TreatyKeyword})
+            TreatyText.hasMany(TreatyKeyword, {as: 'KeywordTreatyId'})
         }
     }
 
@@ -15,11 +16,13 @@ module.exports = (sequelize, models) => {
             primaryKey: true,
             autoIncrement: true
         },
-        text: DataTypes.TEXT,
+        md_text: DataTypes.TEXT,
+        plain_text: DataTypes.TEXT,
     },
     {
         sequelize,
-        modelName: 'TreatyText'
+        modelName: 'TreatyText',
+        timestamps: false
     })
 
     return TreatyText
