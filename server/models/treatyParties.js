@@ -3,8 +3,8 @@ const { DataTypes, Model } = require('sequelize')
 module.exports = (sequelize, models) => {
     class TreatyParties extends Model {
         static associate () {
-            const { Treaty, Country } = models
-            TreatyParties.belongsTo(Country)
+            const { Treaty, State } = models
+            TreatyParties.belongsTo(State)
             TreatyParties.belongsTo(Treaty)
         }
     }

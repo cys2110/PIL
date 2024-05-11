@@ -4,8 +4,8 @@ module.exports = (sequelize, models) => {
     class Treaty extends Model {
         static associate () {
             const { TreatyParties, State, Court, Document, Keyword } = models
-            Treaty.belongsToMany(State, {through: TreatyParties})
-            Treaty.hasMany(TreatyParties)
+            Treaty.belongsToMany(State, {as: 'TreatyParty', through: TreatyParties})
+            Treaty.hasMany(TreatyParties, {as: 'Treaty_id'})
             Treaty.hasMany(Court)
             Treaty.belongsToMany(Document, {through: 'TreatyCites'})
             Treaty.belongsToMany(Keyword, {through: 'TreatyKeyword'})

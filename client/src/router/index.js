@@ -19,15 +19,13 @@ const router = createRouter({
     {
       path: '/treaties',
       name: 'Treaties',
-      component: TreatiesView,
-      children: [
-        {
-          path: ':treaty',
-          name: 'Treaty',
-          component: TreatyView,
-          props: true
-        }
-      ]
+      component: TreatiesView
+    },
+    {
+      path: '/treaties/:id',
+      name: 'Treaty',
+      component: TreatyView,
+      props: true
     },
     {
       path: '/courts/:court',

@@ -6,6 +6,6 @@ import Header from './components/Header.vue';
 <template>
   <div class="min-h-screen dark:bg-zinc-800">
     <Header />
-    <RouterView />
+    <RouterView :key="$route.fullPath" />
   </div>
 </template>

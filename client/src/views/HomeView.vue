@@ -1,5 +1,5 @@
 <script setup>
-import Treaty from '@/services/Treaty';
+import Treaty from '@/services/treatyService';
 import { onMounted, ref } from 'vue';
 import Markdown from 'vue3-markdown-it'
 
