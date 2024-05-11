@@ -6,7 +6,7 @@ module.exports = (sequelize, models) => {
             const { Treaty, Keyword, TreatyKeyword } = models
             TreatyText.belongsTo(Treaty)
             TreatyText.belongsToMany(Keyword, {as: 'TreatysKeyword', through: TreatyKeyword})
-            TreatyText.hasMany(TreatyKeyword, {as: 'KeywordTreatyId'})
+            TreatyText.hasMany(TreatyKeyword)
         }
     }
 

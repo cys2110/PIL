@@ -5,9 +5,9 @@ module.exports = (sequelize, models) => {
         static associate () {
             const { TreatyText, DocText, TreatyKeyword, DocKeyword } = models
             Keyword.belongsToMany(TreatyText, {as: 'KeywordInTreaty', through: TreatyKeyword})
-            Keyword.hasMany(TreatyKeyword, {as: 'TreatyKeywordId'})
+            Keyword.hasMany(TreatyKeyword)
             Keyword.belongsToMany(DocText, {as: 'KeywordinDoc',through: DocKeyword})
-            Keyword.hasMany(DocKeyword, {as: 'DocKeywordId'})
+            Keyword.hasMany(DocKeyword)
         }
     }
 

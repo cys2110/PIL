@@ -4,8 +4,8 @@ module.exports = (sequelize, models) => {
     class DocKeyword extends Model {
         static associate () {
             const { DocText, Keyword } = models
-            DocKeyword.belongsTo(Keyword, {as: 'DocKeywordId'})
-            DocKeyword.belongsTo(DocText, {as: 'DocId'})
+            DocKeyword.belongsTo(Keyword)
+            DocKeyword.belongsTo(DocText)
         }
     }
 

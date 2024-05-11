@@ -4,8 +4,8 @@ module.exports = (sequelize, models) => {
     class TreatyKeyword extends Model {
         static associate () {
             const { TreatyText, Keyword } = models
-            TreatyKeyword.belongsTo(Keyword, {as: 'TreatyKeywordId'})
-            TreatyKeyword.belongsTo(TreatyText, {as: 'KeywordTreatyId'})
+            TreatyKeyword.belongsTo(Keyword)
+            TreatyKeyword.belongsTo(TreatyText)
         }
     }
 
