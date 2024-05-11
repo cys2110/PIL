@@ -1,31 +1,33 @@
 const { DataTypes, Model } = require('sequelize')
 
 module.exports = (sequelize, models) => {
-    class Country extends Model {
+    class State extends Model {
         static associate () {
             const { Treaty, TreatyParties, Case, CaseParty } = models
-            Country.belongsToMany(Treaty, {as: 'Party', through: TreatyParties})
-            Country.hasMany(TreatyParties, {as: 'TreatyParty'})
-            Country.belongsToMany(Case, {through: CaseParty})
-            Country.hasMany(CaseParty)
+            State.belongsToMany(Treaty, {through: TreatyParties})
+            State.hasMany(TreatyParties)
+            State.belongsToMany(Case, {through: CaseParty})
+            State.hasMany(CaseParty)
         }
     }
 
-    Country.init({
+    State.init({
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
+        short_name: DataTypes.STRING,
+        off_name: {
             type: DataTypes.STRING,
             allowNull: false
-        }
+        },
+        formerly: DataTypes.ARRAY(DataTypes.STRING)
     },
     {
         sequelize,
-        modelName: 'Country'
+        modelName: 'State'
     })
 
-    return Country
+    return State
 }

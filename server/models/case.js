@@ -3,8 +3,8 @@ const { DataTypes, Model } = require('sequelize')
 module.exports = (sequelize, models) => {
     class Case extends Model {
         static associate () {
-            const { Country, CaseParty, Court, Document, Subject } = models
-            Case.belongsToMany(Country, {through: CaseParty})
+            const { State, CaseParty, Court, Document, Subject } = models
+            Case.belongsToMany(State, {through: CaseParty})
             Case.hasMany(CaseParty)
             Case.belongsTo(Court)
             Case.hasMany(Document)
@@ -23,10 +23,10 @@ module.exports = (sequelize, models) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        instituted: DataTypes.STRING,
-        culmination: DataTypes.STRING,
+        instituted: DataTypes.DATEONLY,
+        culmination: DataTypes.DATEONLY,
         case_type: DataTypes.STRING,
-        priv_applicants: DataTypes.ARRAY(DataTypes.STRING)
+        nonState_apps: DataTypes.ARRAY(DataTypes.STRING)
     },
     {
         sequelize,

@@ -3,14 +3,15 @@ const { DataTypes, Model } = require('sequelize')
 module.exports = (sequelize, models) => {
     class Document extends Model {
         static associate () {
-            const { DocType, Case, Judge, Treaty, DocText, DocJudge } = models
+            const { DocType, Case, Judge, Treaty, DocJudge, Keyword, DocKeyword } = models
             Document.belongsTo(DocType)
             Document.belongsTo(Case)
-            Document.hasOne(DocText)
-            Document.belongsToMany(Judge, {as: 'DocsId', through: DocJudge})
+            Document.belongsToMany(Judge, {through: DocJudge})
             Document.hasMany(DocJudge)
-            Document.belongsToMany(Document, {as: 'DocumentCite', through: 'DocCites'})
-            Document.belongsToMany(Treaty, {as: 'TreatyCite', through: 'TreatyCites'} )
+            Document.belongsToMany(Document, {as: 'DocumentCites', through: 'DocCites'})
+            Document.belongsToMany(Treaty, {through: 'TreatyCites'} )
+            Document.belongsToMany(Keyword, {through: DocKeyword})
+            Document.hasMany(DocKeyword)
         }
     }
 
@@ -27,7 +28,8 @@ module.exports = (sequelize, models) => {
         date: DataTypes.DATEONLY,
         cite: DataTypes.STRING,
         link: DataTypes.STRING,
-        conclusions: DataTypes.ARRAY(DataTypes.TEXT)
+        conclusions: DataTypes.ARRAY(DataTypes.TEXT),
+        text: DataTypes.TEXT
     },
     {
         sequelize,

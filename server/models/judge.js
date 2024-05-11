@@ -4,7 +4,7 @@ module.exports = (sequelize, models) => {
     class Judge extends Model {
         static associate () {
             const { Document, DocJudge } = models
-            Judge.belongsToMany(Document, {as: 'JudgesId', through: DocJudge})
+            Judge.belongsToMany(Document, {through: DocJudge})
             Judge.hasMany(DocJudge)
         }
     }
