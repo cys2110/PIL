@@ -18,13 +18,11 @@ db.State = require('./state')(sequelize, db)
 db.Court = require('./court')(sequelize, db)
 db.Document = require('./document')(sequelize, db)
 db.DocJudge = require('./docJudge')(sequelize, db)
-db.DocKeyword = require('./docKeyword')(sequelize, db)
 db.DocType = require('./docType')(sequelize, db)
 db.Judge = require('./judge')(sequelize, db)
 db.Keyword = require('./keyword')(sequelize, db)
 db.Subject = require('./subject')(sequelize, db)
 db.Treaty = require('./treaty')(sequelize, db)
-db.TreatyKeyword = require('./treatyKeyword')(sequelize, db)
 db.TreatyParties = require('./treatyParties')(sequelize, db)
 
 Object.keys(db).forEach(modelName => {
