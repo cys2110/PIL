@@ -20,11 +20,17 @@ app.use(logger('dev'))
 
 // Controllers
 const treatyController = require('./controllers/TreatyController')
+const documentController = require('./controllers/DocumentController')
+const courtController = require('./controllers/CourtController')
 
 // Endpoints
 app.get('/', (req, res) => res.send('This is the root!'))
 
 app.get('/treaties', treatyController.findTreaties)
 app.get('/treaties/id/:id', treatyController.findTreatyByPk)
+
+app.get('/courts', courtController.findAllCourts)
+
+app.get('/documents/id/:id', documentController.findDocumentByPk)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

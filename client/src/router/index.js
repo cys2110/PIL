@@ -31,23 +31,19 @@ const router = createRouter({
       path: '/courts/:court',
       name: 'Court',
       component: CourtView,
-      props: true,
-      children: [
-        {
-          path: ':case',
-          name: 'Case',
-          component: CaseView,
-          props: true,
-          children: [
-            {
-              path: ':document',
-              name: 'Document',
-              component: DocumentView,
-              props: true
-            }
-          ]
-        }
-      ]
+      props: true
+    },
+    {
+      path: '/courts/:court/:caseId',
+      name: 'Case',
+      component: CaseView,
+      props: true
+    },
+    {
+      path: '/courts/:court/:caseId/:documentId',
+      name: 'Document',
+      component: DocumentView,
+      props: true
     },
     {
       path: '/keywords/:keyword',
