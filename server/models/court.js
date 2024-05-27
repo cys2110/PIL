@@ -1,35 +1,18 @@
-const { DataTypes, Model } = require('sequelize')
+const { Schema } = require('mongoose')
 
-module.exports = (sequelize, models) => {
-    class Court extends Model {
-        static associate () {
-            const { Case, Treaty } = models
-            Court.belongsTo(Treaty)
-            Court.hasMany(Case)
-        }
-    }
-
-    Court.init({
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        abbr: DataTypes.STRING,
-        established: DataTypes.INTEGER,
-        abolished: DataTypes.INTEGER,
-        jx: DataTypes.STRING,
-        seat: DataTypes.STRING
-    },
+const CourtSchema = new Schema(
     {
-        sequelize,
-        modelName: 'Court',
-        timestamps: false
-    })
+        name: {type: String, required: true},
+        abbr: {type: String, required: true},
+        established: {type: Number, required: true},
+        abolished: {type: Number, required: false},
+        jx: {type: String, required: false},
+        seat: {type: String, required: false},
+        treaty_est: {type: Schema.Types.ObjectId, ref: 'Treaty'},
+        statute: {type: Schema.Types.ObjectId, ref: 'Treaty'},
+        rules: {type: Schema.Types.ObjectId, ref: 'Treaty'}
+    },
+    {timestamps: true}
+)
 
-    return Court
-}
+module.exports = CourtSchema

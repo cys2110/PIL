@@ -1,40 +1,24 @@
-const { DataTypes, Model } = require('sequelize')
+const { Schema } = require('mongoose')
 
-module.exports = (sequelize, models) => {
-    class Document extends Model {
-        static associate () {
-            const { DocType, Case, Judge, Treaty, DocJudge, Keyword } = models
-            Document.belongsTo(DocType)
-            Document.belongsTo(Case)
-            Document.belongsToMany(Judge, {through: DocJudge})
-            Document.hasMany(DocJudge)
-            Document.belongsToMany(Document, {as: 'DocumentCites', through: 'DocCites'})
-            Document.belongsToMany(Treaty, {through: 'TreatyCites'} )
-            Document.belongsToMany(Keyword, {through: 'DocKeyword'})
-        }
-    }
-
-    Document.init({
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        date: DataTypes.DATEONLY,
-        cite: DataTypes.STRING,
-        link: DataTypes.STRING,
-        conclusions: DataTypes.ARRAY(DataTypes.TEXT),
-        text: DataTypes.TEXT
-    },
+const DocumentSchema = new Schema(
     {
-        sequelize,
-        modelName: 'Document',
-        timestamps: false
-    })
+        title: {type: String, required: false},
+        case: [{type: Schema.Types.ObjectId, ref: 'Case'}],
+        date: {type: Date, required: false},
+        doc_type: [{type: Schema.Types.ObjectId, ref: 'DocType'}],
+        cite: {type: String, required: false},
+        judges: [{
+            judge: {type: Schema.Types.ObjectId, ref: 'Judge'},
+            role: {type: String, required: false}
+        }],
+        link: {type: String, required: false},
+        conclusions: [{type: String, required: false}],
+        text: {type: String, required: false},
+        treaty_cites: [{type: Schema.Types.ObjectId, ref: 'Treaty'}],
+        doc_cites: [{type: Schema.Types.ObjectId, ref: 'Document'}],
+        keywords: [{type: Schema.Types.ObjectId, ref: 'Keyword'}]
+    },
+    {timestamps: true}
+)
 
-    return Document
-}
+module.exports = DocumentSchema

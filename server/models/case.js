@@ -1,38 +1,19 @@
-const { DataTypes, Model } = require('sequelize')
+const { Schema } = require('mongoose')
 
-module.exports = (sequelize, models) => {
-    class Case extends Model {
-        static associate () {
-            const { State, CaseParty, Court, Document, Subject } = models
-            Case.belongsToMany(State, {through: CaseParty})
-            Case.hasMany(CaseParty)
-            Case.belongsTo(Court)
-            Case.hasMany(Document)
-            Case.belongsToMany(Subject, {through: 'CaseSubject'})
-        }
-    }
-
-    Case.init({
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        case_no: DataTypes.STRING,
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        instituted: DataTypes.DATEONLY,
-        culmination: DataTypes.DATEONLY,
-        case_type: DataTypes.STRING,
-        nonState_apps: DataTypes.ARRAY(DataTypes.STRING)
-    },
+const CaseSchema = new Schema(
     {
-        sequelize,
-        modelName: 'Case',
-        timestamps: false
-    })
+        case_no: {type: String, required: false},
+        title: {type: String, required: true},
+        court: {type: Schema.Types.ObjectId, ref: 'Court'},
+        instituted: {type: Date, required: false},
+        culmination: {type: Date, required: false},
+        case_type: {type: String, required: false},
+        subjects: [{type: Schema.Types.ObjectId, ref: 'Subject'}],
+        non_state_apps: [{type: String, required: false}],
+        state_apps: [{type: Schema.Types.ObjectId, ref: 'State'}],
+        respondents: [{type: Schema.Types.ObjectId, ref: 'State'}]
+    },
+    {timestamps: true}
+)
 
-    return Case
-}
+module.exports = CaseSchema

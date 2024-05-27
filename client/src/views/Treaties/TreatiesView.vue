@@ -1,7 +1,6 @@
 <script setup>
 import treatyService from '@/services/treatyService';
 import { onMounted, ref } from 'vue';
-import { RouterLink } from 'vue-router';
 
 const treaties = ref([])
 
@@ -15,7 +14,7 @@ onMounted(() => {
 <template>
     <div v-if="treaties.length > 0">
         <div class="dark:text-white" v-for="treaty in treaties" :key="treaty.id">
-            <RouterLink :to="{name: 'Treaty', params: {id: treaty.id}}">{{ treaty.title }}</RouterLink>
+            <router-link :to="{name: 'Treaty', params: {id: treaty.id}}">{{ treaty.title }}</router-link>
         </div>
     </div>
     <div v-else class="dark:text-white">Loading...</div>

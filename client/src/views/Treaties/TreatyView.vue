@@ -15,7 +15,7 @@ onMounted(() => {
 
 <template>
     <div v-if="treaty">
-        <div class="dark:text-white">{{ treaty.title }}</div>
+        <div class="dark:text-white text-center text-3xl">{{ treaty.title }}</div>
         <div class="dark:text-white" v-if="treaty.sig_date">{{ treaty.sig_date }}</div>
         <div class="dark:text-white">{{ treaty.effective_date }}</div>
         <div class="dark:text-white">{{ treaty.location_signed }}</div>

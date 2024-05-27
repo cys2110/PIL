@@ -1,29 +1,10 @@
-const { DataTypes, Model } = require('sequelize')
+const { Schema } = require('mongoose')
 
-module.exports = (sequelize, models) => {
-    class DocType extends Model {
-        static associate () {
-            const { Document } = models
-            DocType.hasMany(Document)
-        }
-    }
-
-    DocType.init({
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        docType: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    },
+const DocTypeSchema = new Schema(
     {
-        sequelize,
-        modelName: 'DocType',
-        timestamps: false
-    })
+        doc_type: {type: String, required: true}
+    },
+    {timestamps: true}
+)
 
-    return DocType
-}
+module.exports = DocTypeSchema

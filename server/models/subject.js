@@ -1,29 +1,10 @@
-const { DataTypes, Model } = require('sequelize')
+const { Schema } = require('mongoose')
 
-module.exports = (sequelize, models) => {
-    class Subject extends Model {
-        static associate () {
-            const { Case } = models
-            Subject.belongsToMany(Case, {through: 'CaseSubject'})
-        }
-    }
-
-    Subject.init({
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        subject: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
-    },
+const SubjectSchema = new Schema(
     {
-        sequelize,
-        modelName: 'Subject',
-        timestamps: false
-    })
+        subject: {type: String, required: true}
+    },
+    {timestamps: true}
+)
 
-    return Subject
-}
+module.exports = SubjectSchema

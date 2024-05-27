@@ -1,39 +1,24 @@
-const { DataTypes, Model } = require('sequelize')
+const { Schema } = require('mongoose')
 
-module.exports = (sequelize, models) => {
-    class Treaty extends Model {
-        static associate () {
-            const { TreatyParties, State, Court, Document, Keyword } = models
-            Treaty.belongsToMany(State, {as: 'TreatyParty', through: TreatyParties})
-            Treaty.hasMany(TreatyParties, {as: 'Treaty_id'})
-            Treaty.hasMany(Court)
-            Treaty.belongsToMany(Document, {through: 'TreatyCites'})
-            Treaty.belongsToMany(Keyword, {through: 'TreatyKeyword'})
-        }
-    }
-
-    Treaty.init({
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        sig_date: DataTypes.DATEONLY,
-        effective_date: DataTypes.DATEONLY,
-        location_signed: DataTypes.STRING,
-        link: DataTypes.STRING,
-        cite: DataTypes.STRING,
-        text: DataTypes.TEXT
-    },
+const TreatySchema = new Schema(
     {
-        sequelize,
-        modelName: 'Treaty',
-        timestamps: false
-    })
+        title: {type: String, required: true},
+        sig_date: {type: Date, required: false},
+        effective_date: {type: Date, required: false},
+        location_signed: {type: String, required: false},
+        link: {type: String, required: false},
+        cite: {type: String, required: false},
+        text: {type: String, required: false},
+        keywords: [{type: Schema.Types.ObjectId, ref: 'Keyword'}],
+        parties: [{
+            state: {type: Schema.Types.ObjectId, ref: 'State'},
+            signed: {type: Date, required: false},
+            ratified: {type: Date, required: false},
+            reservation: {type: String, required: false},
+            declaration: {type: String, required: false}
+        }]
+    },
+    {timestamps: false}
+)
 
-    return Treaty
-}
+module.exports = TreatySchema

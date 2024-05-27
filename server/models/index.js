@@ -1,34 +1,32 @@
-const Sequelize = require('sequelize')
-const dotenv = require('dotenv')
-dotenv.config()
+const mongoose = require('mongoose')
+const CaseSchema = require('./case')
+const CourtSchema = require('./court')
+const DocTypeSchema = require('./docType')
+const DocumentSchema = require('./document')
+const JudgeSchema = require('./judge')
+const KeywordSchema = require('./keyword')
+const StateSchema = require('./state')
+const SubjectSchema = require('./subject')
+const TreatySchema = require('./treaty')
 
-const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env.PASSWORD, {
-    host: process.env.HOST,
-    dialect: process.env.dialect
-})
+const Case = mongoose.model('Case', CaseSchema)
+const Court = mongoose.model('Court', CourtSchema)
+const DocType = mongoose.model('DocType', DocTypeSchema)
+const Document = mongoose.model('Document', DocumentSchema)
+const Judge = mongoose.model('Judge', JudgeSchema)
+const Keyword = mongoose.model('Keyword', KeywordSchema)
+const State = mongoose.model('State', StateSchema)
+const Subject = mongoose.model('Subject', SubjectSchema)
+const Treaty = mongoose.model('Treaty', TreatySchema)
 
-const db = {}
-
-db.Sequelize = Sequelize
-db.sequelize = sequelize
-
-db.Case = require('./case')(sequelize, db)
-db.CaseParty = require('./caseParty')(sequelize, db)
-db.State = require('./state')(sequelize, db)
-db.Court = require('./court')(sequelize, db)
-db.Document = require('./document')(sequelize, db)
-db.DocJudge = require('./docJudge')(sequelize, db)
-db.DocType = require('./docType')(sequelize, db)
-db.Judge = require('./judge')(sequelize, db)
-db.Keyword = require('./keyword')(sequelize, db)
-db.Subject = require('./subject')(sequelize, db)
-db.Treaty = require('./treaty')(sequelize, db)
-db.TreatyParties = require('./treatyParties')(sequelize, db)
-
-Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
-});
-
-module.exports = db
+module.exports = {
+    Case,
+    Court,
+    DocType,
+    Document,
+    Judge,
+    Keyword,
+    State,
+    Subject,
+    Treaty
+}
